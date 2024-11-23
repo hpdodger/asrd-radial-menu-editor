@@ -18,4 +18,7 @@ export class MenuItemComponent {
 
 	@Input() public model: TNullable<MenuItemNode> = null;
 
+	public shouldContainEnabledCheckbox(): boolean {
+		return this.model?.label !== "Center";
+	}
 }

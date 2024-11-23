@@ -7,6 +7,7 @@ import { MenuStoreService } from "./services/menu-store-service";
 import { MenuNode } from "./models/nodes/menu-node";
 import { MenuRootNode } from "./models/nodes/menu-root-node";
 import { TNullable } from "./models/t-nullable";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
 	selector: "app-root",
@@ -26,18 +27,18 @@ export class AppComponent {
 
 	public menuRootNode: TNullable<MenuRootNode>;
 
-	// public menus: MenuNode[] = [];
+	public safeYoutubeUrl: string = "";
 
-	public result: string = "";
+	
 
-	public activeTabIndex: number = 0;
+	public activeTabIndex: number = 2;
 
 	constructor(
-		private _elementRef: ElementRef,
-		private _menuService: MenuStoreService,
+		private _elementRef: ElementRef,		
+		private _domSanitizer: DomSanitizer,
 	) {
 
-		
+		this.safeYoutubeUrl = this._domSanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/7WEjaydZOYs") as string;
 
 	}
 
@@ -84,25 +85,7 @@ export class AppComponent {
 		const dlBtn: HTMLAnchorElement = this._elementRef.nativeElement.querySelector(`.${btnSelector}`) as HTMLAnchorElement;
 		dlBtn.setAttribute("href", window.URL.createObjectURL(myFile));
 		dlBtn.setAttribute("download", fileName);
-		dlBtn.click();
+		// dlBtn.click();
 	}
 
-
-	// private _generate(): void {
-		
-	// 	const leftBrace = `${CBrMark}{`;
-	// 	const rightBrace = `${CBrMark}}`;
-	// 	const menus = `${CBrMark}${CTabMark}${this.menus.map(menu => menu.serializeToASRD()).join(`${CBrMark}${CTabMark}`)}`;
-
-	// 	this.result = `"RadialMenu"${leftBrace}${menus}${rightBrace}`
-	// 		.replaceAll(CBrMark, "\n")
-	// 		.replaceAll(CTabMark, "\t");
-		
-	// }
-
-	// private _isMenuValid(): boolean {
-	// 	if (this.menus.length === 0) return false;
-	// 	// TODO check uniq names
-	// 	return true;
-	// }
 }
