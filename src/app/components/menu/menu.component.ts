@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { IMenu, IMenuItem, TMenuItemLabel } from "../../models/i-menu";
 import { TNullable } from "../../models/t-nullable";
 import { MenuItemComponent } from "../menu-item/menu-item.component";
 import { FormsModule } from "@angular/forms";
+import { MenuNode } from "../../models/menu-node";
+import { MenuItemNode } from "../../models/menu-item-node";
+import { TMenuItemLabel } from "../../models/t-menu-item-label";
 
 @Component({
 	selector: "app-menu",
@@ -15,7 +17,7 @@ import { FormsModule } from "@angular/forms";
 	styleUrl: "./menu.component.scss"
 })
 export class MenuComponent {
-	@Input() public model: TNullable<IMenu> = null;
+	@Input() public model: TNullable<MenuNode> = null;
 	@Input() public index: number = 0;
 
 	@Output() public onRemoveMenu: EventEmitter<number> = new EventEmitter<number>();	
@@ -23,7 +25,7 @@ export class MenuComponent {
 	public constructor() {
 	}
 
-	public getItemByLabel(label: TMenuItemLabel): TNullable<IMenuItem> {
+	public getItemByLabel(label: TMenuItemLabel): TNullable<MenuItemNode> {
 		return this.model?.items.find(item => item.label === label);
 	}
 

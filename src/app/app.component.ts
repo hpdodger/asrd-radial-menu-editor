@@ -1,16 +1,19 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
-import { IMenu } from "./models/i-menu";
 import { MenuComponent } from "./components/menu/menu.component";
 import { FormsModule } from "@angular/forms";
+import { MenuStoreService } from "./services/menu-store-service";
+import { MenuNode } from "./models/menu-node";
+import { CBrMark } from "./models/c-br-mark";
+import { CTabMark } from "./models/c-tab-mark";
 
 @Component({
 	selector: "app-root",
 	standalone: true,
 	imports: [
-		CommonModule, 
-		RouterOutlet, 
+		CommonModule,
+		RouterOutlet,
 		MenuComponent,
 		FormsModule
 	],
@@ -18,58 +21,51 @@ import { FormsModule } from "@angular/forms";
 	styleUrl: "./app.component.scss"
 })
 export class AppComponent {
-	title = "asrd-menu-editor";
 
-	public menus: IMenu[] = [];
+	public title = "ASRD Radial menu editor";
+
+	public rootMenu: MenuNode = new MenuNode(null);
+
+	public menus: MenuNode[] = [];
 
 	public result: string = "";
 
-	constructor() { 
+	public activeTabIndex: number = 0;
 
-		const rootMenuModel: IMenu[] = [];
-
+	constructor(private _menuService: MenuStoreService) {
 		this.menus.push();
-
-	
-		
 	}
 
-	public addMenu(): void { 
-		const t: IMenu = {
-			label: "New menu",
-			items: [
-
-				{ label: "NorthWest", command: "NorthWest", text: "NorthWest", enabled: true },
-				{ label: "North", command: "North", text: "North", enabled: true },
-				{ label: "NorthEast", command: "NorthhEast", text: "NorthhEast", enabled: true },
-
-				{ label: "West", command: "West", text: "West", enabled: true },
-				{ label: "Center", command: "Center", text: "Center", enabled: true },
-				{ label: "East", command: "East", text: "East", enabled: true },
-
-				{ label: "SouthWest", command: "South", text: "South", enabled: true },
-				{ label: "South", command: "South", text: "South", enabled: true },
-				{ label: "SouthEast", command: "West", text: "West", enabled: true },
-
-
-			]
-		}
-
-		this.menus.push(t);
+	public setEditorView(): void {
+		this.activeTabIndex = 0;
 	}
 
-	public removeMenu(index: number): void { 
+	public setResultView(): void {
+		this._generate();
+		this.activeTabIndex = 1;
+	}
+
+	public addMenu(): void {
+		const newMenu: MenuNode = new MenuNode(null);		
+		this.menus.push(newMenu);
+		const ml = newMenu.label;
+		newMenu.label = `${ml}${this.menus.length}`;
+	}
+
+	public removeMenu(index: number): void {
 		this.menus.splice(index, 1);
 	}
 
-	public generate(): void {
-		if (!this._isMenuValid()) return;
+	private _generate(): void {
+		
+		const leftBrace = `${CBrMark}{`;
+		const rightBrace = `${CBrMark}}`;
+		const menus = `${CBrMark}${CTabMark}${this.menus.map(menu => menu.serializeToASRD()).join(`${CBrMark}${CTabMark}`)}`;
 
-		this.result = `"RadialMenu"\r\n{`;
-
-		this.menus.map((menu, index) => {
-			
-		})
+		this.result = `"RadialMenu"${leftBrace}${menus}${rightBrace}`
+			.replaceAll(CBrMark, "\n")
+			.replaceAll(CTabMark, "\t");
+		
 	}
 
 	private _isMenuValid(): boolean {
