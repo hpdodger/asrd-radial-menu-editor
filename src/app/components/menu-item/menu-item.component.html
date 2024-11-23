@@ -1,0 +1,10 @@
+<div *ngIf="model; else elseBlock">
+	<div class="itemDescription"> label: {{model!.label}} </div>
+	<div class="itemDescription"> text: <input type="text" [value]="model!.text" /> </div>
+	<div class="itemDescription"> command: <input type="text" [value]="model!.command"/> </div>
+	<div class="itemDescription"> <label>enabled: <input type="checkbox" [checked]="model!.enabled"/></label> </div>
+</div>
+
+<ng-template #elseBlock>
+	<div> no model </div>
+</ng-template>

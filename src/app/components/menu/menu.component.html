@@ -1,0 +1,27 @@
+<table border="1" width="100%">
+	<tr>
+		<td colspan="3">
+			Menu label: <input type="text" [(ngModel)]="model!.label" />
+		</td>
+	</tr>
+	<tr>
+		<th><app-menu-item [model]="getItemByLabel('NorthWest')"></app-menu-item></th>
+		<th><app-menu-item [model]="getItemByLabel('North')"></app-menu-item></th>
+		<th><app-menu-item [model]="getItemByLabel('NorthEast')"></app-menu-item></th>
+	</tr>
+	<tr>
+		<th><app-menu-item [model]="getItemByLabel('West')"></app-menu-item></th>
+		<th><app-menu-item [model]="getItemByLabel('Center')"></app-menu-item></th>
+		<th><app-menu-item [model]="getItemByLabel('East')"></app-menu-item></th>
+	</tr>
+	<tr>
+		<th><app-menu-item [model]="getItemByLabel('SouthWest')"></app-menu-item></th>
+		<th><app-menu-item [model]="getItemByLabel('South')"></app-menu-item></th>
+		<th><app-menu-item [model]="getItemByLabel('SouthEast')"></app-menu-item></th>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<button (click)="removeMenu()">Remove menu</button>
+		</td>
+	</tr>
+</table>
