@@ -1,4 +1,4 @@
-import { TMenuItemLabel } from "./t-menu-item-label";
+import { TMenuItemLabel } from "../t-menu-item-label";
 
 export interface IMenuItem {
 	label: TMenuItemLabel;

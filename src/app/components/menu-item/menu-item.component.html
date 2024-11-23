@@ -1,5 +1,5 @@
 <div *ngIf="model; else elseBlock">
-	<div class="itemDescription"> {{model!.label}} </div>
+	<div class="itemDescription"> <b>{{model!.label}}</b> </div>
 	<div class="itemDescription"> text: <input type="text" [(ngModel)]="model!.text" class="form-control form-control-sm"/> </div>
 	<div class="itemDescription"> command: <input type="text" [(ngModel)]="model!.command" class="form-control form-control-sm" /> </div>
 	<div class="itemDescription"> <label>enabled: <input type="checkbox" [(ngModel)]="model!.enabled" /></label> </div>

@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { TNullable } from "../../models/t-nullable";
 import { CommonModule } from "@angular/common";
-import { MenuItemNode } from "../../models/menu-item-node";
+import { MenuItemNode } from "../../models/nodes/menu-item-node";
 import { FormsModule } from "@angular/forms";
 
 @Component({

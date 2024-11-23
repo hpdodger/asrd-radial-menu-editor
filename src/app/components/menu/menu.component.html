@@ -2,28 +2,28 @@
 	<tbody>
 		<tr>
 			<td colspan="3">
+				<button (click)="removeMenu()" class="btn btn-sm btn-outline-danger">Remove menu</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
 				Menu label: <input type="text" [(ngModel)]="model!.label" class="form-control form-control-sm"/>
 			</td>
 		</tr>
 		<tr>
-			<th><app-menu-item [model]="getItemByLabel('NorthWest')"></app-menu-item></th>
-			<th><app-menu-item [model]="getItemByLabel('North')"></app-menu-item></th>
-			<th><app-menu-item [model]="getItemByLabel('NorthEast')"></app-menu-item></th>
+			<td><app-menu-item [model]="getItemByLabel('NorthWest')"></app-menu-item></td>
+			<td><app-menu-item [model]="getItemByLabel('North')"></app-menu-item></td>
+			<td><app-menu-item [model]="getItemByLabel('NorthEast')"></app-menu-item></td>
 		</tr>
 		<tr>
-			<th><app-menu-item [model]="getItemByLabel('West')"></app-menu-item></th>
-			<th><app-menu-item [model]="getItemByLabel('Center')"></app-menu-item></th>
-			<th><app-menu-item [model]="getItemByLabel('East')"></app-menu-item></th>
+			<td><app-menu-item [model]="getItemByLabel('West')"></app-menu-item></td>
+			<td><app-menu-item [model]="getItemByLabel('Center')"></app-menu-item></td>
+			<td><app-menu-item [model]="getItemByLabel('East')"></app-menu-item></td>
 		</tr>
 		<tr>
-			<th><app-menu-item [model]="getItemByLabel('SouthWest')"></app-menu-item></th>
-			<th><app-menu-item [model]="getItemByLabel('South')"></app-menu-item></th>
-			<th><app-menu-item [model]="getItemByLabel('SouthEast')"></app-menu-item></th>
-		</tr>
-		<tr>
-			<td colspan="3">
-				<button (click)="removeMenu()" class="btn btn-sm btn-outline-danger">Remove menu</button>
-			</td>
+			<td><app-menu-item [model]="getItemByLabel('SouthWest')"></app-menu-item></td>
+			<td><app-menu-item [model]="getItemByLabel('South')"></app-menu-item></td>
+			<td><app-menu-item [model]="getItemByLabel('SouthEast')"></app-menu-item></td>
 		</tr>
 	</tbody>
 </table>

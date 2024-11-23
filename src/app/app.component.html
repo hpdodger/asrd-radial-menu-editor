@@ -1,24 +1,36 @@
 <div class="container">
 
 	<h2>ASRD Radial menu editor</h2>
+	<h4 >by typical russian</h4>
 
 	<ul class="nav nav-tabs">
 		<li class="nav-item">
-			<a class="nav-link" [ngClass]="activeTabIndex === 0 ? 'active' : ''" (click)="setEditorView()">Editor</a>
+			<a class="nav-link" [ngClass]="activeTabIndex === 0 ? 'active' : ''" (click)="activeTabIndex = 0">Editor</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" [ngClass]="activeTabIndex === 1 ? 'active' : ''" (click)="setResultView()">Result</a>
+			<a class="nav-link" [ngClass]="activeTabIndex === 1 ? 'active' : ''" (click)="activeTabIndex = 1">Result</a>
 		</li>
 	</ul>
 
 	<div *ngIf="activeTabIndex === 0" class="content">
-		<details name="menus" *ngFor="let menu of menus; let i = index" [open]="i === menus.length-1">
-			<summary>Menu label: <b>{{menu.label}}</b></summary>
-			<app-menu [model]="menu" [index]="i" (onRemoveMenu)="removeMenu($event)"></app-menu>
-		</details>
 
-		<button (click)="addMenu()" class="btn btn-sm btn-outline-secondary">Add menu</button>
-		<!-- <button (click)="generate()" class="btn btn-sm btn-outline-secondary" [disabled]="menus.length === 0">Generate</button> -->
+		<div class="card" style="margin-bottom: 10px;">
+			<div class="card-body" style="padding: 10px;">
+				<button (click)="addMenu()" class="btn btn-sm btn-outline-secondary">Add menu</button>
+				<button class="btn btn-sm btn-outline-secondary" disabled>Load menu from JSON file</button>
+			</div>
+		</div>
+
+		<div class="card" *ngIf="menuRootNode && menuRootNode.items.length > 0">
+			<div class="card-body" style="padding: 10px;">
+				<details name="menus" *ngFor="let menu of menuRootNode.items; let i = index"
+					[open]="i === menuRootNode.items.length - 1">
+					<summary>Menu label: <b>{{menu.label}}</b></summary>
+					<app-menu [model]="menu" [index]="i" (onRemoveMenu)="removeMenu($event)"></app-menu>
+				</details>
+			</div>
+		</div>
+
 	</div>
 
 	<div *ngIf="activeTabIndex === 1" class="content">
@@ -30,13 +42,25 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td width="50%">
-						<textarea style="width: 100%; height: 100%;" rows="20" [(ngModel)]="result" readonly>
+					<td><a class="btn btn-sm btn-outline-secondary downloadTextBtn" [ngClass]="menuRootNode ? '' : 'disabled'" (click)="saveToFile('text')">save to file</a></td>
+					<td><a class="btn btn-sm btn-outline-secondary downloadJsonBtn" [ngClass]="menuRootNode ? '' : 'disabled'" (click)="saveToFile('json')">save to file</a></td>
+				</tr>
+				<tr>
+					<td width="50%" *ngIf="menuRootNode; else noMenu">
+						<textarea 
+							style="width: 100%; height: 100%;" 
+							rows="20" 
+							[value]="menuRootNode.serializeToASRD()" 
+							readonly>
 						</textarea>
 					</td>
 					<td>
-						<textarea style="width: 100%; height: 100%;" rows="20" [(ngModel)]="result" readonly>
-												</textarea>
+						<textarea *ngIf="menuRootNode; else noMenu"
+							style="width: 100%; height: 100%;" 
+							rows="20" 
+							[value]="menuRootNode.serializeToJSON()" 
+							readonly>
+						</textarea>
 					</td>
 				</tr>
 		</table>
@@ -48,3 +72,7 @@
 
 </div>
 <router-outlet></router-outlet>
+
+<ng-template #noMenu>
+	<div> no model </div>
+</ng-template>

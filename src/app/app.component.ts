@@ -1,12 +1,12 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
 import { MenuComponent } from "./components/menu/menu.component";
 import { FormsModule } from "@angular/forms";
 import { MenuStoreService } from "./services/menu-store-service";
-import { MenuNode } from "./models/menu-node";
-import { CBrMark } from "./models/c-br-mark";
-import { CTabMark } from "./models/c-tab-mark";
+import { MenuNode } from "./models/nodes/menu-node";
+import { MenuRootNode } from "./models/nodes/menu-root-node";
+import { TNullable } from "./models/t-nullable";
 
 @Component({
 	selector: "app-root",
@@ -24,53 +24,85 @@ export class AppComponent {
 
 	public title = "ASRD Radial menu editor";
 
-	public rootMenu: MenuNode = new MenuNode(null);
+	public menuRootNode: TNullable<MenuRootNode>;
 
-	public menus: MenuNode[] = [];
+	// public menus: MenuNode[] = [];
 
 	public result: string = "";
 
 	public activeTabIndex: number = 0;
 
-	constructor(private _menuService: MenuStoreService) {
-		this.menus.push();
+	constructor(
+		private _elementRef: ElementRef,
+		private _menuService: MenuStoreService,
+	) {
+
+		
+
 	}
 
-	public setEditorView(): void {
-		this.activeTabIndex = 0;
-	}
-
-	public setResultView(): void {
-		this._generate();
-		this.activeTabIndex = 1;
-	}
 
 	public addMenu(): void {
+		
+		if (!this.menuRootNode) {
+			this.menuRootNode = new MenuRootNode({
+				label: "RadialMenu",
+				items: []
+			});			
+		}
+		
 		const newMenu: MenuNode = new MenuNode(null);		
-		this.menus.push(newMenu);
+		this.menuRootNode.addItem(newMenu);
+		
 		const ml = newMenu.label;
-		newMenu.label = `${ml}${this.menus.length}`;
+		newMenu.label = `${ml}${this.menuRootNode.items.length}`;
 	}
 
 	public removeMenu(index: number): void {
-		this.menus.splice(index, 1);
+		this.menuRootNode?.removeItem(index);
 	}
 
-	private _generate(): void {
+	public saveToFile(type: "text" | "json"): void {
+		let mime;
+		let fileContent;
+		let fileName;
+		let btnSelector;
+		if (type === "text") {
+			mime = "text/plain";
+			fileContent = this.menuRootNode!.serializeToASRD();
+			fileName = "RadialMenu.txt";
+			btnSelector = "downloadTextBtn";
+		} else {
+			mime = "application/json";
+			fileContent = this.menuRootNode!.serializeToJSON();
+			fileName = "RadialMenu.json";
+			btnSelector = "downloadJsonBtn";
+		}
+		const myFile = new Blob([fileContent!], { type: mime });
+		window.URL = window.URL || window.webkitURL;
+
+		const dlBtn: HTMLAnchorElement = this._elementRef.nativeElement.querySelector(`.${btnSelector}`) as HTMLAnchorElement;
+		dlBtn.setAttribute("href", window.URL.createObjectURL(myFile));
+		dlBtn.setAttribute("download", fileName);
+		dlBtn.click();
+	}
+
+
+	// private _generate(): void {
 		
-		const leftBrace = `${CBrMark}{`;
-		const rightBrace = `${CBrMark}}`;
-		const menus = `${CBrMark}${CTabMark}${this.menus.map(menu => menu.serializeToASRD()).join(`${CBrMark}${CTabMark}`)}`;
+	// 	const leftBrace = `${CBrMark}{`;
+	// 	const rightBrace = `${CBrMark}}`;
+	// 	const menus = `${CBrMark}${CTabMark}${this.menus.map(menu => menu.serializeToASRD()).join(`${CBrMark}${CTabMark}`)}`;
 
-		this.result = `"RadialMenu"${leftBrace}${menus}${rightBrace}`
-			.replaceAll(CBrMark, "\n")
-			.replaceAll(CTabMark, "\t");
+	// 	this.result = `"RadialMenu"${leftBrace}${menus}${rightBrace}`
+	// 		.replaceAll(CBrMark, "\n")
+	// 		.replaceAll(CTabMark, "\t");
 		
-	}
+	// }
 
-	private _isMenuValid(): boolean {
-		if (this.menus.length === 0) return false;
-		// TODO check uniq names
-		return true;
-	}
+	// private _isMenuValid(): boolean {
+	// 	if (this.menus.length === 0) return false;
+	// 	// TODO check uniq names
+	// 	return true;
+	// }
 }

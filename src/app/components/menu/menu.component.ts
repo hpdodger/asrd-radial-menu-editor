@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TNullable } from "../../models/t-nullable";
 import { MenuItemComponent } from "../menu-item/menu-item.component";
 import { FormsModule } from "@angular/forms";
-import { MenuNode } from "../../models/menu-node";
-import { MenuItemNode } from "../../models/menu-item-node";
+import { MenuNode } from "../../models/nodes/menu-node";
+import { MenuItemNode } from "../../models/nodes/menu-item-node";
 import { TMenuItemLabel } from "../../models/t-menu-item-label";
 
 @Component({
