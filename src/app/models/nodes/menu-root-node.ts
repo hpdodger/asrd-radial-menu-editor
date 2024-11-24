@@ -12,6 +12,8 @@ export class MenuRootNode extends BaseNode<IMenuRootNode, IMenuDomainModel, Menu
 
 	constructor(_domainModel: TNullable<IMenuRootNode>) {
 		super(_domainModel);
+
+		this._items = _domainModel!.items.map(item => new MenuNode(item));
 	}
 
 	public override serializeToJSON(): TNullable<string> {

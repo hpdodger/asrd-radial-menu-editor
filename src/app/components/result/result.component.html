@@ -1,0 +1,31 @@
+<table class="table table-bordered">
+	<thead>
+		<th>RadialMenu.txt</th>
+		<th>JSON</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td><a class="btn btn-sm btn-outline-secondary downloadTextBtn" [ngClass]="menuRootNode!.items.length > 0 ? '' : 'disabled'"
+					(click)="saveToFile('text')">save to file</a>
+			</td>
+			<td><a class="btn btn-sm btn-outline-secondary downloadJsonBtn" [ngClass]="menuRootNode!.items.length > 0 ? '' : 'disabled'"
+					(click)="saveToFile('json')">save to file</a>
+			</td>
+		</tr>
+		<tr>
+			<td width="50%" *ngIf="menuRootNode; else noMenu">
+				<textarea style="width: 100%; height: 100%;" rows="20" [value]="menuRootNode!.serializeToASRD()"
+					readonly>
+						</textarea>
+			</td>
+			<td>
+				<textarea *ngIf="menuRootNode; else noMenu" style="width: 100%; height: 100%;" rows="20"
+					[value]="menuRootNode!.serializeToJSON()" readonly>
+						</textarea>
+			</td>
+		</tr>
+</table>
+
+<ng-template #noMenu>
+	<div> no model </div>
+</ng-template>

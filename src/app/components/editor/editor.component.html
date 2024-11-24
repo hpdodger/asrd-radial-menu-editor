@@ -1,0 +1,22 @@
+<div class="card" style="margin-bottom: 10px;">
+	<div class="card-body" style="padding: 10px;">
+		<button (click)="addMenu()" class="btn btn-sm btn-outline-secondary">Add menu</button>
+		<!-- <input type="file" (change)="loadFromFile($event)" accept=".json" /> -->
+
+		<label for="file-upload" class="btn btn-sm btn-outline-secondary">
+			Load from json file
+		</label>
+		<input id="file-upload" type="file" (change)="loadFromFile($event)" accept=".json" />
+
+	</div>
+</div>
+
+<div class="card" *ngIf="menuRootNode && menuRootNode.items.length > 0">
+	<div class="card-body" style="padding: 10px;">
+		<details name="menus" *ngFor="let menu of menuRootNode!.items; let i = index"
+			[open]="i === menuRootNode!.items.length - 1">
+			<summary>Menu label: <b>{{menu.label}}</b></summary>
+			<app-menu [model]="menu" [index]="i" (onRemoveMenu)="removeMenu($event)"></app-menu>
+		</details>
+	</div>
+</div>

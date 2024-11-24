@@ -13,7 +13,9 @@ export abstract class BaseNode<
 	public get items(): TItemNodeModel[] { return this._items; }
 	protected _items: TItemNodeModel[] = [];
 
-	constructor(protected _domainModel: TNullable<TDomainModel>) { }
+	constructor(protected _domainModel: TNullable<TDomainModel>) { 
+		if (!_domainModel) return;		
+	}
 
 	public getDomainModel(): IBaseDomainNode<any> {
 		return this._domainModel!;
