@@ -37,6 +37,7 @@
 					},
 					"configurations": {
 						"production": {
+							"baseHref": "/asrd-radial-menu-editor/",
 							"budgets": [
 								{
 									"type": "initial",
