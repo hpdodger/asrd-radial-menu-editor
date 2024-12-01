@@ -1,27 +1,107 @@
-# AsrdMenuEditor
+### ASRD RADIAL MENU EDITOR
+Created for educational and entertainment purposes. There is a list of improvements to be made. Any help and adequate criticism is welcome.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+### INFO
 
-## Development server
+```RadialMenu``` is located at ```\scripts\radialmenu.txt``` and is a txt file containing a description of the available menus and their elements.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Each menu contains a label that specifies the identifier of this menu and a set of elements.
 
-## Code scaffolding
+Each menu element contains a label, text, command.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Label specifies the identifier of the menu item. Tthere can be up to 9 - 
+```
+"Center" | "North" | "NorthEast" | "East" | "SouthEast" | "South" | "SouthWest" | "West" | "NorthWest"
+```
 
-## Build
+Text specifies the presentation of the menu item on the screen.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Command specifies the action that will be performed when clicking on the menu item.
 
-## Running unit tests
+### WORKING WITH THE EDITOR
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+You can add arbitrary count of menus.
 
-## Running end-to-end tests
+The editor allows you to create new menus, edit existing ones, delete and add items, and create nested menus.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Nested menus can be useful for quick access to different commands and help you avoid remembering multiple binds.
 
-## Further help
+The enabled flag allows you to disable the menu item on the screen if necessary. You cannot disable ```Center``` item.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Below is an example of a truncated three-level menu with transitions in depth and back:
+
+```
+"RadialMenu"
+{
+	"Default"
+	{
+		"NorthWest"
+		{
+			"command"	"radialmenu Submenu1"
+			"text"		"Submenu1"
+		}
+		"Center"
+		{
+			"command"	""
+			"text"		"^_^"
+		}
+	}
+	"Submenu1"
+	{
+		"NorthEast"
+		{
+			"command"	"radialmenu Submenu2"
+			"text"		"Submenu2"
+		}
+		"Center"
+		{
+			"command"	"radialmenu Default"
+			"text"		"back"
+		}
+		"SouthWest"
+		{
+			"command"	"cl_emote 6"
+			"text"		"cl_emote 6"
+		}
+	}
+	"Submenu2"
+	{
+		"Center"
+		{
+			"command"	"radialmenu Submenu1"
+			"text"		"back"
+		}
+		"SouthWest"
+		{
+			"command"	"cl_emote 5"
+			"text"		"cl_emote 5"
+		}
+	}
+}
+
+```
+
+The ```Result``` tab allows you to view the final version in Txt and JSON formats, as well as download it.
+
+
+### Using in the game
+
+
+Make a bind to any button to open the default menu, for example
+
+```
+bind o "radialmenu Default"
+```
+
+The difference from the ```+mouse_menu command``` is that ```radialmenu``` opens the menu when pressed, and ```+mouse_menu``` - when pressed and held.
+
+You can quickly close the menu at any time by pressing the default menu button (```Z```).
+
+There are some peculiarities when moving through multi-level menus.
+
+For example: when selecting a menu item that allows you to go to a submenu,
+you need to click on it (at this point the submenu will open) and continue to hold the mouse button.
+
+Now if you need to select the final command, you need to move the cursor to it and release the left mouse
+button,
+regardless of whether it is a submenu, no. Moving back from a submenu works on the same principle.
