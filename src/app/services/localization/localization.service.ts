@@ -22,7 +22,7 @@ export class LocalizationService {
 
 	public set currentLanguage(language: TLanguageId) {
 		this._currentLanguage = language;
-		this._translation = this._process();
+		this._translation = this._getActualTranslation();
 
 		const settings: TStorageSettings = {
 			currentLanguage: language,
@@ -55,7 +55,7 @@ export class LocalizationService {
 		return Object.keys(this._translates).sort((a, b) => -1) as TLanguageId[];
 	}	
 
-	private _process(): TLanguage {
+	private _getActualTranslation(): TLanguage {
 		const newTranslation: TLanguage = JSON.parse(JSON.stringify(Object.values(this._translates)[0]));
 		const keys = Object.keys(newTranslation);
 
