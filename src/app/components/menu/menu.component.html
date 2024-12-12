@@ -2,12 +2,12 @@
 	<tbody>
 		<tr>
 			<td colspan="3">
-				<button (click)="removeMenu()" class="btn btn-sm btn-outline-danger">Remove menu</button>
+				<button (click)="removeMenu()" class="btn btn-sm btn-outline-danger">{{localizationService.translation.tabs.editor.menu.removeMenu}}</button>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="3">
-				Menu label: <input type="text" [(ngModel)]="model!.label" class="form-control form-control-sm"/>
+				{{localizationService.translation.tabs.editor.menu.menuLabel}}: <input type="text" [(ngModel)]="model!.label" class="form-control form-control-sm"/>
 			</td>
 		</tr>
 		<tr>

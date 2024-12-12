@@ -1,128 +1,85 @@
 <ul id="toc">
-	<li><a href="#generalInformation">General information</a></li>
-	<li><a href="#preview">Preview</a></li>
-	<li><a href="#workingWithEditor">Working with the editor</a></li>
-	<li><a href="#usingInTheGame">Using in the game</a></li>	
+	<li><a href="#generalInformation">{{localizationService.translation.tabs.information.sections.generalInformation.caption}}</a></li>
+	<li><a href="#preview">{{localizationService.translation.tabs.information.sections.preview.caption}}</a></li>
+	<li><a href="#workingWithEditor">{{localizationService.translation.tabs.information.sections.workingWithEditor.caption}}</a></li>
+	<li><a href="#usingInTheGame">{{localizationService.translation.tabs.information.sections.usingInTheGame.caption}}</a></li>	
 </ul>
 
-<h3 id="generalInformation">General information</h3>
+<h3 id="generalInformation">{{localizationService.translation.tabs.information.sections.generalInformation.caption}}</h3>
 
-<h5>Created for educational and entertainment purposes. There is a list of improvements to be made. Any help and
-	adequate
-	criticism is welcome.</h5>
-<br><a href="#toc">TOC</a>
+<h5>{{localizationService.translation.tabs.information.sections.generalInformation.content[0]}}</h5>
+<a href="#toc">{{localizationService.translation.tabs.information.toc}}</a><p></p>
 
-<h3 id="preview">Preview</h3>
+<h3 id="preview">{{localizationService.translation.tabs.information.sections.preview.caption}}</h3>
 
 <img src="assets/screenshot.png" alt="preview" width="560" />
-<br><br>
+<p></p>
 <iframe width="560" height="315" [src]="safeYoutubeUrl" frameborder="0" allowfullscreen></iframe>
 
-<p>
-	RadialMenu is located at \scripts\radialmenu.txt and is a txt file containing a description of the available
-	menus
-	and their elements.
-<p>
-	Each menu contains a label that specifies the identifier of this menu and a set of elements.
+<p *ngFor="let str of localizationService.translation.tabs.information.sections.preview.content">
+	{{str}}
+</p>
+<a href="#toc">{{localizationService.translation.tabs.information.toc}}</a><p></p>
 
-<p>
-	Each menu element contains a label, text, command.
-<p>
-	label specifies the identifier of the menu item (there can be up to 9 - "Center" | "North" | "NorthEast" |
-	"East" |
-	"SouthEast" | "South" | "SouthWest" | "West" | "NorthWest")
-<p>
-	text specifies the presentation of the menu item on the screen.
-<p>
-	command specifies the action that will be performed when clicking on the menu item.
-<br><a href="#toc">TOC</a>
+<h3 id="workingWithEditor">{{localizationService.translation.tabs.information.sections.workingWithEditor.caption}}</h3>
 
-<h3 id="workingWithEditor">Working with the editor</h3>
-<p>
-	You can add arbitrary count of menus.
-<p>
-	The editor allows you to create new menus, edit existing ones, delete and add items, and create nested
-	menus.
-<p>
-	Nested menus can be useful for quick access to different commands and help you avoid remembering multiple
-	binds.
-<p>
-	The enabled flag allows you to disable the menu item on the screen if necessary. You cannot disable Center
-	item.
-<p>
+<p *ngFor="let str of localizationService.translation.tabs.information.sections.workingWithEditor.content">
+	{{str}}
+</p>
+<textarea style="width: 100%;" rows="20" readonly>
+"RadialMenu"
+{
+	"Default"
+	{
+		"NorthWest"
+		{
+			"command"	"radialmenu Submenu1"
+			"text"		"Submenu1"
+		}
+		"Center"
+		{
+			"command"	""
+			"text"		"^_^"
+		}
+	}
+	"Submenu1"
+	{
+		"NorthEast"
+		{
+			"command"	"radialmenu Submenu2"
+			"text"		"Submenu2"
+		}
+		"Center"
+		{
+			"command"	"radialmenu Default"
+			"text"		"back"
+		}
+		"SouthWest"
+		{
+			"command"	"cl_emote 6"
+			"text"		"cl_emote 6"
+		}
+	}
+	"Submenu2"
+	{
+		"Center"
+		{
+			"command"	"radialmenu Submenu1"
+			"text"		"back"
+		}
+		"SouthWest"
+		{
+			"command"	"cl_emote 5"
+			"text"		"cl_emote 5"
+		}
+	}
+}
+</textarea>
 
-	Below is an example of a truncated three-level menu with transitions in depth and back:
-<p>
+<a href="#toc">{{localizationService.translation.tabs.information.toc}}</a><p></p>
 
-	<textarea style="width: 100%;" rows="20" readonly>
-			"RadialMenu"
-			{
-				"Default"
-				{
-					"NorthWest"
-					{
-						"command"	"radialmenu Submenu1"
-						"text"		"Submenu1"
-					}
-					"Center"
-					{
-						"command"	""
-						"text"		"^_^"
-					}
-				}
-				"Submenu1"
-				{
-					"NorthEast"
-					{
-						"command"	"radialmenu Submenu2"
-						"text"		"Submenu2"
-					}
-					"Center"
-					{
-						"command"	"radialmenu Default"
-						"text"		"back"
-					}
-					"SouthWest"
-					{
-						"command"	"cl_emote 6"
-						"text"		"cl_emote 6"
-					}
-				}
-				"Submenu2"
-				{
-					"Center"
-					{
-						"command"	"radialmenu Submenu1"
-						"text"		"back"
-					}
-					"SouthWest"
-					{
-						"command"	"cl_emote 5"
-						"text"		"cl_emote 5"
-					}
-				}
-			}
-		</textarea>
-
-	The Result tab allows you to view the final version in Txt and JSON formats, as well as download it.
-<br><a href="#toc">TOC</a>
-
-<h3 id="usingInTheGame">Using in the game</h3>
-
-<p>
-	Make a bind to any button to open the default menu, for example bind o "radialmenu Default".
-	<br>
-	The difference from the +mouse_menu command is that radialmenu opens the menu when pressed, and +mouse_menu
-	- when
-	pressed and held.
-<p>
-	You can quickly close the menu at any time by pressing the default menu button (Z).
-<p>
-	There are some peculiarities when moving through multi-level menus.
-	<br>
-	For example: when selecting a menu item that allows you to go to a submenu,
-	you need to click on it (at this point the submenu will open) and continue to hold the mouse button.
-	Now if you need to select the final command, you need to move the cursor to it and release the left mouse
-	button,
-	regardless of whether it is a submenu, no. Moving back from a submenu works on the same principle.
-<br><a href="#toc">TOC</a>
+<h3 id="usingInTheGame">{{localizationService.translation.tabs.information.sections.usingInTheGame.caption}}</h3>
+<p *ngFor="let str of localizationService.translation.tabs.information.sections.usingInTheGame.content">
+	{{str}}
+</p>
+<a href="#toc">{{localizationService.translation.tabs.information.toc}}</a>

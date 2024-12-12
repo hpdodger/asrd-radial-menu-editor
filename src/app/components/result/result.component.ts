@@ -1,9 +1,10 @@
 import { Component, ElementRef } from "@angular/core";
-import { MenuStoreService } from "../../services/menu-store-service";
+import { MenuStoreService } from "../../services/menu-store.service";
 import { TNullable } from "../../models/t-nullable";
 import { MenuRootNode } from "../../models/nodes/menu-root-node";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { LocalizationService } from "../../services/localization/localization.service";
 
 @Component({
 	selector: "app-result",
@@ -20,6 +21,7 @@ export class ResultComponent {
 	public readonly menuRootNode: TNullable<MenuRootNode> = this._menuStoreService.menuRootNode;
 
 	constructor(
+		public readonly localizationService: LocalizationService,
 		private _elementRef: ElementRef,
 		private _menuStoreService: MenuStoreService) {
 		

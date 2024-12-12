@@ -2,3 +2,15 @@ div.content {
 	padding: 10px;
 }
 
+.selectedLanguage {
+	font-weight: bold;
+	text-decoration: none;
+	cursor: default;
+	color: var(--bs-body-color);;
+}
+
+.language {
+	color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
+	text-decoration: underline;
+	cursor: pointer;
+}

@@ -1,10 +1,9 @@
 <div class="card" style="margin-bottom: 10px;">
 	<div class="card-body" style="padding: 10px;">
-		<button (click)="addMenu()" class="btn btn-sm btn-outline-secondary">Add menu</button>
-		<!-- <input type="file" (change)="loadFromFile($event)" accept=".json" /> -->
+		<button (click)="addMenu()" class="btn btn-sm btn-outline-secondary">{{localizationService.translation.tabs.editor.addMenu}}</button>
 
 		<label for="file-upload" class="btn btn-sm btn-outline-secondary">
-			Load from json file
+			{{localizationService.translation.tabs.editor.loadMenu}}
 		</label>
 		<input id="file-upload" type="file" (change)="loadFromFile($event)" accept=".json" />
 
@@ -15,7 +14,7 @@
 	<div class="card-body" style="padding: 10px;">
 		<details name="menus" *ngFor="let menu of menuRootNode!.items; let i = index"
 			[open]="i === menuRootNode!.items.length - 1">
-			<summary>Menu label: <b>{{menu.label}}</b></summary>
+			<summary>{{localizationService.translation.tabs.editor.menu.menuLabel}}: <b>{{menu.label}}</b></summary>
 			<app-menu [model]="menu" [index]="i" (onRemoveMenu)="removeMenu($event)"></app-menu>
 		</details>
 	</div>

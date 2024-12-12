@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { MenuNode } from "../../models/nodes/menu-node";
 import { MenuItemNode } from "../../models/nodes/menu-item-node";
 import { TMenuItemLabel } from "../../models/t-menu-item-label";
+import { LocalizationService } from "../../services/localization/localization.service";
 
 @Component({
 	selector: "app-menu",
@@ -22,7 +23,7 @@ export class MenuComponent {
 
 	@Output() public onRemoveMenu: EventEmitter<number> = new EventEmitter<number>();	
 
-	public constructor() {
+	public constructor(public readonly localizationService: LocalizationService) {
 	}
 
 	public getItemByLabel(label: TMenuItemLabel): TNullable<MenuItemNode> {

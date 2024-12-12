@@ -2,10 +2,11 @@ import { ApplicationRef, ChangeDetectorRef, Component } from "@angular/core";
 import { MenuComponent } from "../menu/menu.component";
 import { MenuRootNode } from "../../models/nodes/menu-root-node";
 import { MenuNode } from "../../models/nodes/menu-node";
-import { MenuStoreService } from "../../services/menu-store-service";
+import { MenuStoreService } from "../../services/menu-store.service";
 import { TNullable } from "../../models/t-nullable";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { LocalizationService } from "../../services/localization/localization.service";
 
 @Component({
 	selector: "app-editor",
@@ -23,6 +24,7 @@ export class EditorComponent {
 	public menuRootNode: TNullable<MenuRootNode> = this._menuStoreService.menuRootNode;
 
 	constructor(
+		public readonly localizationService: LocalizationService,
 		private _menuStoreService: MenuStoreService,
 		private _cdr: ChangeDetectorRef
 	) { }

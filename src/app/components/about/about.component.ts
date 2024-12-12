@@ -1,10 +1,14 @@
 import { Component } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
+import { LocalizationService } from "../../services/localization/localization.service";
+import { CommonModule } from "@angular/common";
 
 @Component({
 	selector: "app-about",
 	standalone: true,
-	imports: [],
+	imports: [
+		CommonModule
+	],
 	templateUrl: "./about.component.html",
 	styleUrl: "./about.component.scss"
 })
@@ -12,7 +16,10 @@ export class AboutComponent {
 
 	public safeYoutubeUrl: string = "";
 
-	constructor(private _domSanitizer: DomSanitizer) {
+	constructor(
+		public readonly localizationService: LocalizationService,
+		private _domSanitizer: DomSanitizer
+	) {
 
 		
 		

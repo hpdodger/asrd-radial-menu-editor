@@ -6,10 +6,10 @@
 	<tbody>
 		<tr>
 			<td><a class="btn btn-sm btn-outline-secondary downloadTextBtn" [ngClass]="menuRootNode!.items.length > 0 ? '' : 'disabled'"
-					(click)="saveToFile('text')">save to file</a>
+					(click)="saveToFile('text')">{{localizationService.translation.tabs.result.saveToFile}}</a>
 			</td>
 			<td><a class="btn btn-sm btn-outline-secondary downloadJsonBtn" [ngClass]="menuRootNode!.items.length > 0 ? '' : 'disabled'"
-					(click)="saveToFile('json')">save to file</a>
+					(click)="saveToFile('json')">{{localizationService.translation.tabs.result.saveToFile}}</a>
 			</td>
 		</tr>
 		<tr>

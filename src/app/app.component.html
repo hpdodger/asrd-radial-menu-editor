@@ -1,18 +1,32 @@
 <div class="container">
 
-	<h2>ASRD Radial menu editor (for <a href="https://store.steampowered.com/app/563560/Alien_Swarm_Reactive_Drop/">Alien Swarm: Reactive Drop</a>)</h2>
-	<h4>by <a href="https://steamcommunity.com/id/w_asd/">typical russian</a></h4>
+	<h2>ASRD Radial menu editor ({{localizationService.translation.header.for}} <a
+			href="https://store.steampowered.com/app/563560/Alien_Swarm_Reactive_Drop/">Alien Swarm: Reactive Drop</a>)
+	</h2>
+	<h4>{{localizationService.translation.header.author}} <a href="https://steamcommunity.com/id/w_asd/">typical
+			russian</a></h4>
+
+	<h4>
+		<span *ngFor="let language of getLanguages(); let i = index; let isLast = last">
+			<span [ngClass]="{
+						'selectedLanguage': localizationService.currentLanguage === language,
+						'language': localizationService.currentLanguage !== language,
+					}" (click)="localizationService.currentLanguage = language">
+				{{language}}</span><span *ngIf="!isLast"> | </span></span>
+	</h4>
 
 	<ul class="nav nav-tabs">
 		<li class="nav-item">
 			<a class="nav-link" [ngClass]="activeTabIndex === 2 ? 'active' : ''"
-				(click)="activeTabIndex = 2">Information</a>
+				(click)="activeTabIndex = 2">{{localizationService.translation.tabs.information.caption}}</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" [ngClass]="activeTabIndex === 0 ? 'active' : ''" (click)="activeTabIndex = 0">Editor</a>
+			<a class="nav-link" [ngClass]="activeTabIndex === 0 ? 'active' : ''"
+				(click)="activeTabIndex = 0">{{localizationService.translation.tabs.editor.caption}}</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" [ngClass]="activeTabIndex === 1 ? 'active' : ''" (click)="activeTabIndex = 1">Result</a>
+			<a class="nav-link" [ngClass]="activeTabIndex === 1 ? 'active' : ''"
+				(click)="activeTabIndex = 1">{{localizationService.translation.tabs.result.caption}}</a>
 		</li>
 	</ul>
 
