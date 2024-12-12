@@ -47,6 +47,9 @@ export type TLanguage = DeepRequired<{
 		result: {
 			caption: string;
 			saveToFile: string;
+		},
+		quickRef: {
+			caption: string;
 		}
 	}
 }>

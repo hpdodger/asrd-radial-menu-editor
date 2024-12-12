@@ -79,6 +79,9 @@ export const CRuLocalization: TLanguage = {
 		result: {
 			caption: "Результат",
 			saveToFile: "Сохранить в файл"
+		},
+		quickRef: {
+			caption: "Справка по командам"
 		}
 	}
 

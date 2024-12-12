@@ -27,6 +27,10 @@
 		<li class="nav-item">
 			<a class="nav-link" [ngClass]="activeTabIndex === 1 ? 'active' : ''"
 				(click)="activeTabIndex = 1">{{localizationService.translation.tabs.result.caption}}</a>
+		</li>		
+		<li class="nav-item">
+			<a class="nav-link" [ngClass]="activeTabIndex === 1 ? 'active' : ''"
+				(click)="activeTabIndex = 3">{{localizationService.translation.tabs.quickRef.caption}}</a>
 		</li>
 	</ul>
 
@@ -43,8 +47,33 @@
 	</div>
 
 	<div *ngIf="activeTabIndex === 2" class="content">
-
 		<app-about></app-about>
+	</div>
+
+	<div *ngIf="activeTabIndex === 3" class="content">
+		
+		Console commands: 
+		<ul>
+			<li>
+				<a href="https://developer.valvesoftware.com/wiki/List_of_Alien_Swarm:_Reactive_Drop_console_commands_and_variables">developer.valvesoftware.com</a>
+			</li>
+			<li>
+				<a href="https://alienswarm.fandom.com/wiki/Console_commands">alienswarm.fandom.com</a>
+			</li>
+		</ul>		
+
+		Emoticons:
+		<b>cl_emote #</b>
+		<ul>
+			<li>0 - Medic call</li>
+			<li>1 - Need ammo</li>
+			<li>2 - Medic</li>
+			<li>3 - Stop</li>
+			<li>4 - Go</li>
+			<li>5 - Warning</li>
+			<li>6 - Anime smile</li>
+			<li>7 - Ready</li>
+		</ul>
 
 	</div>
 

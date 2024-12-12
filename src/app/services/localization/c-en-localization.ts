@@ -79,6 +79,9 @@ export const CEnLocalization: TLanguage = {
 		result: {
 			caption: "Result",
 			saveToFile: "Save to file"
+		},
+		quickRef: {
+			caption: "Command reference"
 		}
 	}
 }
